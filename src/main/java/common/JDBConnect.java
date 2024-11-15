@@ -24,7 +24,7 @@ import jakarta.servlet.ServletContext;
 			try {
 				Class.forName("oracle.jdbc.OracleDriver");
 				String url = "jdbc:oracle:thin:@localhost:1521:xe";
-				String id = "user";
+				String id = "webproject_db";
 				String pwd= "1234";
 				con = DriverManager.getConnection(url, id, pwd);
 				

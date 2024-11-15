@@ -32,7 +32,7 @@ public class MemberDAO extends JDBConnect {
 			MemberDTO dto = new MemberDTO();
 			/* 로그인 폼에서 입력한 아이디, 패스워드를 통해 인파라미터를 설정할 수있다고록
 			 쿼리문을 작성	  */
-			String query = "SELECT * FROM member WHERE id=? AND pass=?";
+			String query = "SELECT * FROM users WHERE id=? AND pass=?";
 			
 			try {
 				//쿼리문 실행을 위한 prepared 인스턴스 생성

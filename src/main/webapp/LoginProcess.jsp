@@ -4,7 +4,7 @@
 	pageEncoding="UTF-8"%>
 <%
 
-//로드인 폼에서 전솔(submit)한 폼값을 받는다.
+//로그인 폼에서 전솔(submit)한 폼값을 받는다.
     String userId = request.getParameter("user_id");
     String userPwd = request.getParameter("user_pwd");
     
@@ -29,13 +29,13 @@
     	session.setAttribute("UserName", memberDTO.getName());
     	/*세션 영역에 저장된 속성값은 페이지를 이동하더라도 유지되므로 로그인 
     	페이지로 이동한다. 그리고 웹브라우저를 완전히 닫을때까지 저장된 정보는 유지된다.*/
-    	 response.sendRedirect("LoginForm.jsp"); 
+    	 response.sendRedirect("login.jsp"); 
     	}  else { 
     		/* 로그인에 실패한 경우에는 request 영역에 에러메세지를 저장한 후
     		로그인 페이지로 포워드한다. request 영역은 포워드 한 페이지까지
     		데이터를 공유한다.*/
     		request.setAttribute("LoginErrMsg", "로그인 오류입니다."); 
-    		 request.getRequestDispatcher("LoginForm.jsp").forward(request, response); 
+    		 request.getRequestDispatcher("login.jsp").forward(request, response); 
     		}  
     		%>
 
