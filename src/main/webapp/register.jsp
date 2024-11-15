@@ -43,7 +43,7 @@
 	    <!-- Responsive navbar-->
 	    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	        <div class="container">
-	            <a class="navbar-brand" href="#!">Start Bootstrap</a>
+	            <a class="navbar-brand" href="./index.jsp">Start Bootstrap</a>
 	            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
 	            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	                <span class="navbar-toggler-icon"></span>
@@ -61,40 +61,40 @@
 	    <!-- 로그인 영역 -->
 	    <div class="login-container">
 	        <div class="card mb-4">
-	            <div class="card-header text-center">로그인</div>
+	            <div class="card-header text-center">회원 가입</div>
 	            <div class="card-body">
 	                <form action="LoginProcess.jsp" method="post">
 	                    <div class="mb-3">
 	                        <label for="username" class="form-label">아이디</label>
-	                        <input type="text" class="form-control" id="user_id" name="user_id" required>
+	                        <input type="text" class="form-control" id="user_id" name="user_id" placeholder="아이디" required>
 	                    </div>
 	                    
 	                    <div class="mb-3">
 	                        <label for="password" class="form-label">비밀번호</label>
-	                        <input type="password" class="form-control" id="user_pwd" name="user_pwd" required>
+	                        <input type="password" class="form-control" id="user_pwd" name="user_pwd" placeholder="비밀번호" required>
 	                    </div>
 	                    
 	                     <div class="mb-3">
 	                        <label for="user_name" class="form-label">이름</label>
-	                        <input type="text" class="form-control" id="user_name" name="user_name" required>
+	                        <input type="text" class="form-control" id="user_name" name="user_name" placeholder="ex)홍길동" required>
 	                    </div>
 	                    
 	                     <div class="mb-3">
 	                        <label for="email" class="form-label">이메일</label>
-	                        <input type="text" class="form-control" id="email" name="email" required>
+	                        <input type="text" class="form-control" id="email" name="email" placeholder="ex)abcde123@fgh.com" required>
 	                    </div>
 	                    
 	                     <div class="mb-3">
 	                        <label for="phone" class="form-label">휴대폰번호</label>
-	                        <input type="text" class="form-control" id="phone" name="phone" required>
+	                        <input type="text" class="form-control" id="phone" name="phone" placeholder="xxx-xxxx-xxxx : -은 생략하고 입력" required>
 	                    </div>
 	                    
 	                   
 	
 	                    <!-- 버튼 그룹 -->
 	                    <div class="button-group">
-	                        <button type="submit" class="btn btn-primary">로그인</button>
-	                        <a href="register.jsp" class="btn btn-secondary">회원가입</a>
+	                        <button type="submit" class="btn btn-primary">회원가입</button>
+	                        
 	                    </div>
 	                </form>
 	            </div>
