@@ -33,7 +33,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link" href="index.jsp">홈</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">블로그</a></li>
+                        <li class="nav-item"><a class="nav-link" href="./list.do">블로그</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Q&A</a></li>
+                        
                         
                          <%
                             if (isLoggedIn) {
@@ -130,10 +132,20 @@
                     <div class="card mb-4">
                         <div class="card-header">블로그 포스트 검색</div>
                         <div class="card-body">
-                            <div class="input-group">
-                                <input class="form-control" type="text" placeholder="검색어 입력.." aria-label="Enter search term..." aria-describedby="button-search" />
-                                <button class="btn btn-primary" id="button-search" type="button">검색</button>
-                            </div>
+                            <form method="get" action="./list.do">  
+  
+    <tr>
+        <td align="center">
+            <select name="searchField">
+                <option value="title">제목</option>
+                <option value="content">내용</option>
+            </select>
+            <input type="text" name="searchWord" />
+            <input type="submit" value="검색하기" />
+        </td>
+    </tr>
+  
+    </form>
                         </div>
                     </div>
                    

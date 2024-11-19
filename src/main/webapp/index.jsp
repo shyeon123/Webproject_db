@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<%
+    // 세션에서 로그인 정보를 가져옵니다.
+    String userId = (String) session.getAttribute("UserId");
+    String userName = (String) session.getAttribute("UserName");
 
+    // 로그인 상태 확인
+    boolean isLoggedIn = userId != null && userName != null;
+%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,8 +38,22 @@
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="#">홈</a></li>
-					<li class="nav-item"><a class="nav-link" href="./Post.jsp">블로그</a></li>
+					
+					<li class="nav-item"><a class="nav-link" href="./list.do">블로그</a></li>
+					<li class="nav-item"><a class="nav-link" href="./QnA.jsp">Q&A</a></li>
+					 <%
+                            if (isLoggedIn) {
+                        %>
+                        <!-- 여기는 로그인 됐을때 -->
+                        <li class="nav-item"><a class="nav-link" href="./correction.jsp">회원 정보</a></li>
+                          <%
+                            } else {
+                        %>
 					<li class="nav-item"><a class="nav-link" href="./login.jsp">로그인</a></li>
+					
+					<%
+                            }
+					%>
 				</ul>
 			</div>
 		</div>
@@ -129,16 +150,30 @@
 					</ul>
 				</nav>
 			</div>
+			
+			
+			
+			
 			 <!-- Side widgets-->
                 <div class="col-lg-4">
                     <!-- Search widget-->
                     <div class="card mb-4">
                         <div class="card-header">블로그 포스트 검색</div>
                         <div class="card-body">
-                            <div class="input-group">
-                                <input class="form-control" type="text" placeholder="검색어 입력.." aria-label="Enter search term..." aria-describedby="button-search" />
-                                <button class="btn btn-primary" id="button-search" type="button">검색</button>
-                            </div>
+                            <form method="get" action="./list.do">  
+  
+    <tr>
+        <td align="center">
+            <select name="searchField">
+                <option value="title">제목</option>
+                <option value="content">내용</option>
+            </select>
+            <input type="text" name="searchWord" />
+            <input type="submit" value="검색하기" />
+        </td>
+    </tr>
+  
+    </form>
                         </div>
                     </div>
                    
@@ -147,17 +182,32 @@
                 <div class="card mb-4">
                     <div class="card-header">회원 정보</div>
                     <div class="card-body">
-                     
-                            <button type="button" class="btn btn-primary w-45" onclick="location.href='./login.jsp'">로그인하기</button>
-
+                       <%
+                            if (isLoggedIn) {
+                        %>
+                        <!-- 로그인된 상태 -->
+                        <p>이름: <%= userName %></p>
+                        <p>아이디: <%= userId %></p>
+               			
                         
-                     
+                        <button type="button" class="btn btn-primary w-100" onclick="location.href='./logout.jsp'">로그아웃</button>
+                        <%
+                            } else {
+                        %>
+                        <!-- 로그인되지 않은 상태 -->
+                        <p>로그인 후 정보를 확인할 수 있습니다.</p>
+                        <button type="button" class="btn btn-primary w-100" onclick="location.href='./login.jsp'">로그인하기</button>
                         
+                        <%
+                            }
+                        %>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		
+		
 		<!-- Footer-->
 		<footer class="py-5 bg-dark">
 			<div class="container">

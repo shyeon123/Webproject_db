@@ -51,7 +51,8 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link" href="index.jsp">홈</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Post.jsp">블로그</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./list.do">블로그</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./QnA.jsp">Q&A</a></li>
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">로그인</a></li>
                 </ul>
             </div>
@@ -61,16 +62,16 @@
     <!-- 로그인 영역 -->
     <div class="login-container">
         <div class="card mb-4">
-            <div class="card-header text-center">로그인</div>
+            <div class="card-header text-center" onsubmit="return validateFrom(this)">로그인</div>
             <div class="card-body">
-                <form action="LoginProcess.jsp" method="post">
+                <form action="loginProcess.jsp" method="post">
                     <div class="mb-3">
                         <label for="username" class="form-label">아이디</label>
-                        <input type="text" class="form-control" id="user_id" name="user_id" required>
+                        <input type="text" class="form-control" id="user_Id" name="user_id" required>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">비밀번호</label>
-                        <input type="password" class="form-control" id="user_pwd" name="user_pwd" required>
+                        <input type="password" class="form-control" id="user_Pwd" name="user_pwd" required>
                     </div>
 
                     <!-- 버튼 그룹 -->

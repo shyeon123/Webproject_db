@@ -37,6 +37,13 @@
 	        .btn {
 	            width: 48%;
 	        }
+	        
+	        #checkDuplicateBtn {
+        width: 80px;  /* 너비 */
+        height: 38px; /* 높이 */
+        font-size: 12px; /* 글자 크기 */
+        padding: 5px; /* 내부 여백 */
+    }
 	    </style>
 	</head>
 	<body>
@@ -63,30 +70,35 @@
 	        <div class="card mb-4">
 	            <div class="card-header text-center">회원 가입</div>
 	            <div class="card-body">
-	                <form action="LoginProcess.jsp" method="post">
+	                <form action="registerProcess.jsp" method="post">
 	                    <div class="mb-3">
-	                        <label for="username" class="form-label">아이디</label>
-	                        <input type="text" class="form-control" id="user_id" name="user_id" placeholder="아이디" required>
-	                    </div>
+   							 <label for="username" class="form-label">아이디</label>
+ 								   <div class="input-group">
+    								    <input type="text" class="form-control" id="user_Id" name="user_id" placeholder="아이디" required>
+      									  <button type="button" class="btn btn-secondary" id="checkDuplicateBtn">중복체크</button>
+									    </div>
+   									 <div id="duplicateCheckResult" class="text-danger mt-2"></div> <!-- 중복 여부 표시 -->
+								</div>
+
 	                    
 	                    <div class="mb-3">
 	                        <label for="password" class="form-label">비밀번호</label>
-	                        <input type="password" class="form-control" id="user_pwd" name="user_pwd" placeholder="비밀번호" required>
+	                        <input type="password" class="form-control" id="user_Pwd" name="user_pwd" placeholder="비밀번호" required>
 	                    </div>
 	                    
 	                     <div class="mb-3">
 	                        <label for="user_name" class="form-label">이름</label>
-	                        <input type="text" class="form-control" id="user_name" name="user_name" placeholder="ex)홍길동" required>
+	                        <input type="text" class="form-control" id="user_Name" name="user_name" placeholder="ex)홍길동" required>
 	                    </div>
 	                    
 	                     <div class="mb-3">
 	                        <label for="email" class="form-label">이메일</label>
-	                        <input type="text" class="form-control" id="email" name="email" placeholder="ex)abcde123@fgh.com" required>
+	                        <input type="text" class="form-control" id="Email" name="email" placeholder="ex)abcde123@fgh.com" required>
 	                    </div>
 	                    
 	                     <div class="mb-3">
 	                        <label for="phone" class="form-label">휴대폰번호</label>
-	                        <input type="text" class="form-control" id="phone" name="phone" placeholder="xxx-xxxx-xxxx : -은 생략하고 입력" required>
+	                        <input type="text" class="form-control" id="Phone" name="phone" placeholder="xxx-xxxx-xxxx : -은 생략하고 입력" required>
 	                    </div>
 	                    
 	                   
@@ -110,5 +122,8 @@
 	    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 	    <!-- Core theme JS-->
 	    <script src="js2/scripts.js"></script>
+	<script src="js2/checkDuplicate.js"></script>
+	
+	
 	</body>
 	</html>

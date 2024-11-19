@@ -27,10 +27,61 @@
   <param-value>1234</param-value>
   </context-param>
   
-  <resource-ref>
-    <description>DB Connection</description>
-    <res-ref-name>jdbc/webproject_db</res-ref-name>
-    <res-type>javax.sql.DataSource</res-type>
-    <res-auth>Container</res-auth>
-</resource-ref>
+   <servlet>
+  	<servlet-name>BoardList</servlet-name>
+  	<servlet-class>boarddb.ListController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>BoardList</servlet-name>
+  	<url-pattern>/list.do</url-pattern>
+  </servlet-mapping>
+
+
+<servlet>
+  	<servlet-name>BoardWrite</servlet-name>
+  	<servlet-class>boarddb.WriteController</servlet-class>
+  	<multipart-config>
+  		<max-file-size>104857600</max-file-size>
+  		<max-request-size>1048576000</max-request-size>
+  	</multipart-config>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>BoardWrite</servlet-name>
+  	<url-pattern>/write.do</url-pattern>
+  </servlet-mapping>
+  
+   <context-param>
+  	<param-name>POSTS_PER_PAGE</param-name>
+  	<param-value>10</param-value>
+  </context-param>
+  <!-- 한 블럭당 출력할 페이지 번호의 갯수 -->
+  <context-param>
+  	<param-name>PAGES_PER_BLOCK</param-name>
+  	<param-value>5</param-value>
+  </context-param>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </web-app>
