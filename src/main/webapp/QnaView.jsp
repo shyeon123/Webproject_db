@@ -37,8 +37,9 @@ boolean isLoggedIn = userId != null && userName != null;
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link" href="index.jsp">홈</a></li>
-					<li class="nav-item"><a class="nav-link active"	aria-current="page" href="#">블로그</a></li>
-					<li class="nav-item"><a class="nav-link" href="./QnA.do">Q&A</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">블로그</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="./QnA.do">Q&A</a></li>
 
 					<%
 					if (isLoggedIn) {
@@ -129,11 +130,7 @@ boolean isLoggedIn = userId != null && userName != null;
 						</c:when>
 
 
-						<c:otherwise>
-                    첨부파일: ${ dto.ofile }
-                    <a href="./download.do?ofile=${ dto.ofile }&sfile=${dto.sfile }&idx=${ dto.idx }">
-								[다운로드] </a>
-						</c:otherwise>
+						
 					</c:choose>
 				</c:if>
 			</td>
@@ -143,11 +140,11 @@ boolean isLoggedIn = userId != null && userName != null;
 		<td colspan="4" align="center">
     <!-- 로그인 상태일 때만 수정/삭제 버튼 표시 -->
    <c:if test="${ UserId eq dto.id }">
-        <button type="button" onclick="location.href='./edit.do?idx=${ param.idx }';">수정하기</button>
-        <button type="button" onclick="location.href='./delete.do?idx=${ param.idx }';">삭제하기</button>
+        <button type="button" onclick="location.href='./qnaedit.do?idx=${ param.idx }';">수정하기</button>
+        <button type="button" onclick="location.href='./qnadelete.do?idx=${ param.idx }';">삭제하기</button>
     </c:if>
     <!-- 목록 버튼은 항상 표시 -->
-    <button type="button" onclick="location.href='./list.do';">목록</button>
+    <button type="button" onclick="location.href='./QnA.do';">목록</button>
 	</td>
 		</tr>
 			</table>				
@@ -160,17 +157,19 @@ boolean isLoggedIn = userId != null && userName != null;
 			<div class="col-lg-4">
 				<!-- Search widget-->
 				<div class="card mb-4">
-					<div class="card-header">블로그 포스트 검색</div>
-					<div class="card-body">
-						<div class="input-group">
-							<select name="searchField">
-								<option value="title">제목</option>
-								<option value="content">내용</option>
-							</select> <input class="form-control" type="text" placeholder="검색어 입력.."
-								aria-label="Enter search term..."
-								aria-describedby="button-search" />
-							<button class="btn btn-primary" id="button-search" type="button">검색</button>
-						</div>
+					<div class="card-header">Q&A 포스트 검색</div>
+				<div class="card-body">
+						<form method="get">
+
+							<tr>
+								<td align="center"><select name="searchField2">
+										<option value="title">제목</option>
+										<option value="content">내용</option>
+								</select> <input type="text" name="searchWord2" /> <input type="submit"
+									value="검색하기" /></td>
+							</tr>
+
+						</form>
 
 					</div>
 				</div>

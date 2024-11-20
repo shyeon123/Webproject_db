@@ -116,7 +116,7 @@ try {
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link" href="index.jsp">홈</a></li>
 					<li class="nav-item"><a class="nav-link" href="./list.do">블로그</a></li>
-					<li class="nav-item"><a class="nav-link" href="./QnA.jsp">Q&A</a></li>
+					<li class="nav-item"><a class="nav-link" href="./QnA.do">Q&A</a></li>
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="#">회원 정보</a></li>
 				</ul>

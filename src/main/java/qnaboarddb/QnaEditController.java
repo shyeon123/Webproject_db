@@ -1,4 +1,4 @@
-package boarddb;
+package qnaboarddb;
 
 import java.io.IOException;
 
@@ -13,12 +13,12 @@ import jakarta.servlet.http.HttpSession;
 import utils.JSFunction;
 
 //게시물 수정하기
-@WebServlet("/edit.do")
+@WebServlet("/qnaedit.do")
 @MultipartConfig(
 		maxFileSize = 1024 * 1024 * 1,
 		maxRequestSize = 1024 * 1024 * 10
 		)
-public class EditController extends HttpServlet {
+public class QnaEditController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	//수정페이지로 진입하기
@@ -33,8 +33,8 @@ public class EditController extends HttpServlet {
 			return;
 		}
 		String idx = req.getParameter("idx");
-		BoardDAO dao = new BoardDAO();
-		BoardDTO dto = dao.selectView(idx);
+		QnaBoardDAO dao = new QnaBoardDAO();
+		QnaBoardDTO dto = dao.selectView(idx);
 		
 		if(!dto.getId().equals(session.getAttribute("UserId")
 				.toString())) {
@@ -43,7 +43,7 @@ public class EditController extends HttpServlet {
 		}
 		
 		req.setAttribute("dto", dto);
-		req.getRequestDispatcher("Edit.jsp")
+		req.getRequestDispatcher("QnaEdit.jsp")
 					.forward(req, resp);
 	
 	}
@@ -86,7 +86,7 @@ public class EditController extends HttpServlet {
 		String content = req.getParameter("content");
 		
 		//dto에 저장
-		BoardDTO dto = new BoardDTO();
+		QnaBoardDTO dto = new QnaBoardDTO();
 		//파일을 제외한 나머지 폼값을 먼저 저장
 		dto.setIdx(idx);
 		//특히 아이디는 session에 저장된 내용으로 추가 
@@ -109,18 +109,18 @@ public class EditController extends HttpServlet {
 			dto.setSfile(prevSfile);
 		}
 		
-		BoardDAO dao = new BoardDAO();
+		QnaBoardDAO dao = new QnaBoardDAO();
 		int result = dao.updatePost(dto);
 		dao.close();
 		//성공 / 실패?
 		if(result == 1) { //수정 성공
 			//수정에 성공하면 '열람'페이지로 이동해서 수정된 내용을 확인한다.
-			resp.sendRedirect("./view.do?idx=" + idx);
+			resp.sendRedirect("./qnaview.do?idx=" + idx);
 		}else { //수정 실패:경고창을 띄운다
 			JSFunction.alertLocation(resp, "게시글 수정을 실패했습니다", 
-					"./view.do?idx=" + idx);
+					"./qnaview.do?idx=" + idx);
 		}
-		System.out.println("Content: " + dto.getContent());
+		
 	}
 	
 }

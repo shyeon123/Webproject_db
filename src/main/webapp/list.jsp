@@ -40,7 +40,7 @@ boolean isLoggedIn = userId != null;
 					<li class="nav-item"><a class="nav-link" href="index.jsp">홈</a></li>
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="#">블로그</a></li>
-					<li class="nav-item"><a class="nav-link" href="./QnA.jsp">Q&A</a></li>
+					<li class="nav-item"><a class="nav-link" href="./QnA.do">Q&A</a></li>
 
 					<%
 					if (isLoggedIn) {

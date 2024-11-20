@@ -1,4 +1,4 @@
-package boarddb;
+package qnaboarddb;
 
 import java.io.IOException;
 
@@ -12,8 +12,8 @@ import jakarta.servlet.http.HttpSession;
 import oracle.jdbc.Const;
 import utils.JSFunction;
 
-@WebServlet("/delete.do")
-public class DeleteController extends HttpServlet {
+@WebServlet("/qnadelete.do")
+public class QnaDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@Override
@@ -27,8 +27,8 @@ public class DeleteController extends HttpServlet {
 			return;
 		}
 		String idx = req.getParameter("idx");
-		BoardDAO dao = new BoardDAO();
-		BoardDTO dto = dao.selectView(idx);
+		QnaBoardDAO dao = new QnaBoardDAO();
+		QnaBoardDTO dto = dao.selectView(idx);
 		
 		if(!dto.getId().equals(session.getAttribute("UserId")
 				.toString())) {
@@ -41,7 +41,7 @@ public class DeleteController extends HttpServlet {
 			String saveFileName = dto.getSfile();
 			FileUtil.deleteFile(req, "/Uploads", saveFileName);
 		}
-		JSFunction.alertLocation(resp, "삭제되었습니다", "./list.do");
+		JSFunction.alertLocation(resp, "삭제되었습니다", "./QnA.do");
 		//confirm("정말 삭제 하시겠습니까?");
 		
 	

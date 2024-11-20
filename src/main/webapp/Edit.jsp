@@ -9,6 +9,8 @@ String userName = (String) session.getAttribute("UserName");
 // 로그인 상태 확인
 boolean isLoggedIn = userId != null && userName != null;
 %>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +41,7 @@ boolean isLoggedIn = userId != null && userName != null;
 					<li class="nav-item"><a class="nav-link" href="index.jsp">홈</a></li>
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="#">블로그</a></li>
-					<li class="nav-item"><a class="nav-link" href="./QnA.jsp">Q&A</a></li>
+					<li class="nav-item"><a class="nav-link" href="./QnA.do">Q&A</a></li>
 
 					<%
 					if (isLoggedIn) {
@@ -92,9 +94,8 @@ boolean isLoggedIn = userId != null && userName != null;
 						</script>
 						</head>
 						<h2>파일 첨부형 게시판 - 수정하기(Edit)</h2>
-						<form name="writeFrm" method="post" enctype="multipart/form-data"
-							action="./view.do"
-							onsubmit="return validateForm(this);">
+						<form name="writeFrm" method="post" enctype="multipart/form-data"	
+						action="./edit.do"	onsubmit="return validateForm(this);">
 							<input type="hid den" name="idx" value="${ dto.idx }" /> <input
 								type="hid den" name="id" value="${ dto.id }" /> <input
 								type="hid den" name="prevOfile" value="${ dto.ofile }" /> <input

@@ -60,9 +60,27 @@
   	<param-value>5</param-value>
   </context-param>
   
+  <servlet>
+  	<servlet-name>QnaBoard</servlet-name>
+  	<servlet-class>qnaboarddb.QnaController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>QnaBoard</servlet-name>
+  	<url-pattern>/QnA.do</url-pattern>
+  </servlet-mapping>
   
-  
-  
+  <servlet>
+  	<servlet-name>QnaBoardWrite</servlet-name>
+  	<servlet-class>qnaboarddb.QnaWriteController</servlet-class>
+  	<multipart-config>
+  		<max-file-size>104857600</max-file-size>
+  		<max-request-size>1048576000</max-request-size>
+  	</multipart-config>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>QnaBoardWrite</servlet-name>
+  	<url-pattern>/qnawrite.do</url-pattern>
+  </servlet-mapping>
   
   
   

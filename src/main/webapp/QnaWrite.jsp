@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%
 // 세션에서 로그인 정보를 가져옵니다.
 String userId = (String) session.getAttribute("UserId");
@@ -37,8 +37,9 @@ boolean isLoggedIn = userId != null && userName != null;
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link" href="index.jsp">홈</a></li>
-					<li class="nav-item"><a class="nav-link active"	aria-current="page" href="#">블로그</a></li>
-					<li class="nav-item"><a class="nav-link" href="./QnA.do">Q&A</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">블로그</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="./QnA.do">Q&A</a></li>
 
 					<%
 					if (isLoggedIn) {
@@ -74,85 +75,51 @@ boolean isLoggedIn = userId != null && userName != null;
 
 					<!-- Post content-->
 					<section class="mb-5">
-						<p class="fs-5 mb-4"></p>
-						<p class="fs-5 mb-4"></p>
-						<p class="fs-5 mb-4"></p>
-						<h2 class="fw-bolder mb-4 mt-5">대충 게시판 들어갈 자리</h2>
-						<table border="1" width="90%">
-		<colgroup>
-			<col width="15%" />
-			<col width="35%" />
-			<col width="15%" />
-			<col width="*" />
-		</colgroup>
-		<tr>
-			<td>번호</td>
-			<td>${ dto.idx }</td>
-			<td>작성자</td>
-			<td>${ dto.name }</td>
-		</tr>
-		
-		<tr>
-			<td>작성일</td>
-			<td>${ dto.postdate }</td>
-			<td>조회수</td>
-			<td>${ dto.visitcount }</td>
-		</tr>
-		<tr>
-			<td>제목</td>
-			<td colspan="3">${ dto.title }</td>
-
-		</tr>
-
-		<tr>
-			<td>내용</td>
-			<td colspan="3" height="100">${ dto.content } 
-			<c:if	test="${ not empty dto.ofile }">
-					<br>
-					<c:choose>
-						<c:when
-							test="${ dto.ofile.endsWith('.jpg') or dto.ofile.endsWith('.png') or dto.ofile.endsWith('.gif') }">
-							<img src="./Uploads/${ dto.sfile }" style="max-width: 100%;"
-								alt="첨부 이미지" />
-						</c:when>
-						<c:when test="${ dto.ofile.endsWith('.mp3') }">
-							<audio controls>
-								<source src="./Uploads/${ dto.sfile }" type="audio/mpeg">
-								이 브라우저는 오디오 재생을 지원하지 않습니다.
-							</audio>
-						</c:when>
-						<c:when test="${ dto.ofile.endsWith('.mp4') }">
-							<video controls style="max-width: 100%;">
-								<source src="./Uploads/${ dto.sfile }" type="video/mp4">
-								이 브라우저는 비디오 재생을 지원하지 않습니다.
-							</video>
-						</c:when>
-
-
-						<c:otherwise>
-                    첨부파일: ${ dto.ofile }
-                    <a href="./download.do?ofile=${ dto.ofile }&sfile=${dto.sfile }&idx=${ dto.idx }">
-								[다운로드] </a>
-						</c:otherwise>
-					</c:choose>
-				</c:if>
-			</td>
-		</tr>
-
-
-		<td colspan="4" align="center">
-    <!-- 로그인 상태일 때만 수정/삭제 버튼 표시 -->
-   <c:if test="${ UserId eq dto.id }">
-        <button type="button" onclick="location.href='./edit.do?idx=${ param.idx }';">수정하기</button>
-        <button type="button" onclick="location.href='./delete.do?idx=${ param.idx }';">삭제하기</button>
-    </c:if>
-    <!-- 목록 버튼은 항상 표시 -->
-    <button type="button" onclick="location.href='./list.do';">목록</button>
-	</td>
-		</tr>
-			</table>				
-				</section>
-					</article>
+						
+						<script type="text/javascript">
+							function validateForm(form) { // 필수 항목 입력 확인
+								if (form.title.value == "") {
+									alert("제목을 입력하세요.");
+									form.title.focus();
+									return false;
+								}
+								if (form.content.value == "") {
+									alert("내용을 입력하세요.");
+									form.content.focus();
+									return false;
+								}
+							}
+						</script>
+						</head>
+						<h2>파일 첨부형 게시판 - 글쓰기(Write)</h2>
+						<form name="writeFrm" method="post" enctype="multipart/form-data"	action="./qnawrite.do"	onsubmit="return validateForm(this);">
+							<table border="1" width="90%">
+								<tr>
+									<td>제목</td>
+									<td><input type="text" name="title" style="width: 90%;" />
+									</td>
+								</tr>
+								<tr>
+									<td>내용</td>
+									<td><textarea name="content"
+											style="width: 90%; height: 100px;"></textarea></td>
+								</tr>
+								<tr>
+									<td>첨부 파일</td>
+									<td><input type="file" name="ofile" /></td>
+								</tr>
+								<tr>
+									<td colspan="2" align="center">
+										<button type="submit">작성 완료</button>
+										<button type="reset">RESET</button>
+										<button type="button"
+											onclick="location.href='./QnA.do';">목록
+											바로가기</button>
+									</td>
+								</tr>
+							</table>
+					</section>
+				</article>
 				<!-- Comments section-->
 
 			</div>
@@ -160,17 +127,19 @@ boolean isLoggedIn = userId != null && userName != null;
 			<div class="col-lg-4">
 				<!-- Search widget-->
 				<div class="card mb-4">
-					<div class="card-header">블로그 포스트 검색</div>
+					<div class="card-header">Q&A 포스트 검색</div>
 					<div class="card-body">
-						<div class="input-group">
-							<select name="searchField">
-								<option value="title">제목</option>
-								<option value="content">내용</option>
-							</select> <input class="form-control" type="text" placeholder="검색어 입력.."
-								aria-label="Enter search term..."
-								aria-describedby="button-search" />
-							<button class="btn btn-primary" id="button-search" type="button">검색</button>
-						</div>
+						<form method="get">
+
+							<tr>
+								<td align="center"><select name="searchField2">
+										<option value="title">제목</option>
+										<option value="content">내용</option>
+								</select> <input type="text" name="searchWord2" /> <input type="submit"
+									value="검색하기" /></td>
+							</tr>
+
+						</form>
 
 					</div>
 				</div>
