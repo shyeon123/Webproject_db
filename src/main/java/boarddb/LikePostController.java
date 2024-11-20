@@ -1,30 +1,56 @@
 package boarddb;
 
+import java.io.IOException;
+
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/likePost.do")
 public class LikePostController extends HttpServlet {
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        String userId = (String) session.getAttribute("UserId");
-        int postId = Integer.parseInt(req.getParameter("post_id"));
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
-        if (userId == null) {
-            resp.sendRedirect("login.jsp");
+        String postIdParam = req.getParameter("post_id");
+        String userId = (String) req.getSession().getAttribute("UserId");
+
+        if (postIdParam == null || postIdParam.isEmpty()) {
+            System.out.println("Error: post_id is null or empty");
+            resp.setContentType("application/json");
+            resp.getWriter().write("{\"status\":\"error\"}");
             return;
         }
 
-        try (LikeDAO dao = new LikeDAO()) {
-            boolean alreadyLiked = dao.checkIfLiked(postId, userId);
-            if (!alreadyLiked) {
-                dao.likePost(postId, userId);
-            }
+        if (userId == null) {
+            System.out.println("Error: User not logged in");
+            resp.setContentType("application/json");
+            resp.getWriter().write("{\"status\":\"error\"}");
+            return;
         }
 
-        resp.sendRedirect("view.do?idx=" + postId);
+        int postId = Integer.parseInt(postIdParam);
+
+        try (LikeDAO likeDao = new LikeDAO()) {
+            boolean alreadyLiked = likeDao.checkIfLiked(postId, userId);
+            if (!alreadyLiked) {
+                likeDao.likePost(postId, userId);
+                int updatedLikesCount = likeDao.getLikesCount(postId);
+
+                System.out.println("Success: Updated likes count = " + updatedLikesCount);
+                resp.setContentType("application/json");
+                resp.getWriter().write("{\"status\":\"success\", \"likesCount\":" + updatedLikesCount + "}");
+            } else {
+                System.out.println("Error: Already liked by user " + userId);
+                resp.setContentType("application/json");
+                resp.getWriter().write("{\"status\":\"alreadyLiked\"}");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            resp.setContentType("application/json");
+            resp.getWriter().write("{\"status\":\"error\"}");
+        }
     }
 }
+

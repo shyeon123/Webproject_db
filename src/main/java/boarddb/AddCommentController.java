@@ -1,5 +1,8 @@
 package boarddb;
 
+import java.io.IOException;
+
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,7 +11,8 @@ import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/addComment.do")
 public class AddCommentController extends HttpServlet {
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
+            throws ServletException, IOException {
         HttpSession session = req.getSession();
         String userId = (String) session.getAttribute("UserId");
         int postId = Integer.parseInt(req.getParameter("post_id"));
@@ -19,6 +23,7 @@ public class AddCommentController extends HttpServlet {
             return;
         }
 
+        // try-with-resources로 CommentDAO 사용
         try (CommentDAO dao = new CommentDAO()) {
             dao.addComment(postId, userId, content);
         }
